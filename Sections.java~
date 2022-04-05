@@ -1,0 +1,197 @@
+import java.util.*;
+public class Sections{
+  static Scanner gIN = new  Scanner (System.in);     //Global gIN Scanner
+  static int gClassSize;              //Declaring class size as global variable
+  static  double[] gGrades;                 // Declaring grades as global variable
+  
+   public static void exit(){   // Exit program, None Display the farewell
+     
+    System.out.println("Thank you for using this software <Rabiat Sadiq>");
+    
+    
+  }
+  public static void listGrades(double [] gGrades){  //List one by one the grades sorted by the index number
+    System.out.println("LIST OF GRADES");  // Title
+    for(int i=0;i<gClassSize;i++){
+      System.out.println("Grade["+i+ "]: "+gGrades[i]); // prints each grade
+      
+   
+    }
+    
+    
+  }
+   public static void report(int gClassSize, double gGrades[]){   //Report Show the number of grades per letter (A – F) in the array
+    System.out.println ("GRADE REPORT");
+    getGradesLetter(gGrades);
+     
+    }
+   public static void getGradesLetter(double [] gGrades){
+       int a=0,b=0,c=0,d=0,f=0;
+     for(int i=0;i<gClassSize;i++){ // adds one letter for each grade
+       
+       if ((gGrades[i] <= 100.0) && (gGrades[i] >=90.0)){
+         a++;
+       }
+      else if ( (gGrades[i] < 90.0) && (gGrades[i] >= 80.0)){
+       b++;
+       }
+      else if(  (gGrades[i] < 80.0)&& (gGrades[i] >=70)){
+        c++;
+      }
+      else if( (gGrades[i] < 70.0) && (gGrades[i] >=60)){
+        d++;
+      }
+      else if(( gGrades[i]) < (60.0) && (gGrades[i] > 0.0) ){
+       f++;
+      }
+      
+      
+       }
+       System.out.println("F: "+f);
+     System.out.println("D: "+d);
+     System.out.println("C: "+c);
+     System.out.println("B: "+b);
+     System.out.println("A: "+a);
+     }
+   
+    
+ 
+  
+    public static void addModifyGrades(double []gGrades){    //Add or modify a grade of a validated value corresponding to a valid index
+   int gradesLim= gClassSize-1;
+      System.out.print("Enter the index from (0 to " +gradesLim+"): ");
+    int index = gIN.nextInt();     // getting user input for index to add/modify
+    
+    while(index < 0|| (index > gClassSize-1)){          // make sure its in range
+           System.out.println("Value is out of range. Please Try again...");
+           System.out.print("Enter the index from (0 to " +gradesLim+"): ");
+           index = gIN.nextInt();
+    }
+    System.out.println("The current value of the grade in index "+ index +" is :"+gGrades[index]);
+    System.out.print("Enter the grade you want to assign (0.00- 100.00): ");       // giving new grade
+    double newGrade;
+    newGrade= gIN.nextDouble();
+    
+    while(newGrade <0.00|| newGrade >100.00)  {   // make sure its in range
+      System.out.println("Value is out of range. Please Try again...");
+       System.out.print("Enter the grade you want to assign (0.00- 100.00): ");
+      newGrade= gIN.nextDouble();
+    }
+   
+   gGrades[index]= newGrade;     // assigning the new grade
+    
+  }
+    
+     public static void swapGrades(double []gGrades){    //Swap grades between two valid indexes. 
+       int gradesLim= gClassSize-1;         // grades limit = 1 minus size of array
+       System.out.print("Enter the index from (0 to " +gradesLim+"): ");
+       int idxFrom = gIN.nextInt();                                               // get first number to swap
+       
+       while(idxFrom < 0|| idxFrom > gradesLim){          // make sure its in range
+           System.out.println("Value is out of range. Please Try again...");
+           System.out.print("Enter the index from (0 to " +gradesLim+"): ");
+        idxFrom = gIN.nextInt();
+       }
+      System.out.print("Enter the index to (0 to " +gradesLim+") that is not "+idxFrom + ": ");
+    int idxTo = gIN.nextInt();                                 //  // get second number to swap
+    while(idxTo< 0|| idxTo > gradesLim ||idxTo ==idxFrom){  // make sure its in range and cant enter same number
+           System.out.println("Value is out of range. Please Try again...");
+         System.out.print("Enter the index to (0 to " +gradesLim+") that is not "+idxFrom + ": ");
+         
+       idxTo = gIN.nextInt();
+       }
+   
+     SwapValues(idxFrom, idxTo, gGrades);     // Swap grades method 
+  
+  }
+     public static void SwapValues(int idxFrom, int idxTo,double[]gGrades){    // to swap grades
+      double tempVal=0.0;    // temporary  value to hold while swapping
+      
+  
+
+       tempVal = gGrades[idxFrom];
+       gGrades[idxFrom] =  gGrades[idxTo] ;
+       gGrades[idxTo] = tempVal; 
+       
+       
+     }
+    
+     
+     
+  public static void main(String[]args){
+  System.out.println("UTSA - Fall2021 - CS1083 – Section 002 - Project 2 - written by RABIAT SADIQ");    // heading
+                               
+  System.out.print("\nPlease, Enter the class size: ");
+   gClassSize = gIN.nextInt();                       // class size input from user
+   while(gClassSize > 100 || gClassSize < 0){   // making sure user input for class size isnt over 100
+     System.out.println("Value is out of range. Please Try again...");
+     System.out.print("Please, Enter the class size: ");
+     gClassSize = gIN.nextInt();      
+   }
+  double[] gGrades = new double[gClassSize];    // declaring grades array
+ 
+
+
+  
+
+  System.out.println ("MAIN MENU\n 0- Exit, 1- List, 2- Report, 3- Add/Modify, 4- Swap Grades");  
+  System.out.print("Select an option: ");
+  double menuOption = gIN.nextDouble();          // user input for menu option
+  
+  
+  while(menuOption !=0){
+  // Menu limit 0-4
+  while(menuOption >4 || menuOption<0){    // reask menu with while loop
+   System.out.println("Value is out of range. Please Try again...");
+    System.out.println ("\nMAIN MENU\n 0- Exit, 1- List, 2- Report, 3- Add/Modify, 4- Swap Grades");  
+  System.out.print("Select an option: ");
+   menuOption = gIN.nextDouble();
+  }
+  
+// Menu Selection
+    if (menuOption == 0){
+     
+      exit();
+      
+    }
+  else  if (menuOption == 1){
+      
+      listGrades(gGrades);
+      
+    }
+    else if (menuOption == 2){
+      
+      report(gClassSize,gGrades);
+      
+    }
+  else if (menuOption == 3){
+      
+      addModifyGrades(gGrades);
+     
+      
+      
+    }
+   else  if (menuOption == 4){
+      
+      swapGrades(gGrades);
+      
+    }
+   if (menuOption >4 || menuOption<0){
+      System.out.println("Value is out of range. Please Try again..1.");
+   }
+    System.out.println ("\nMAIN MENU\n0- Exit, 1- List, 2- Report, 3- Add/Modify, 4- Swap Grades");    // reask
+  System.out.print("Select an option: ");
+   menuOption = gIN.nextDouble();
+   if(menuOption ==0){
+     exit();
+   }
+  }
+   
+  }
+}
+
+  
+  
+  
+
+
